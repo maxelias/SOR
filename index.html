@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOR Practice Exams — Studies of Religion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F2EC;
+  --surface: #FDFBF7;
+  --border: #D8D2C4;
+  --border-dark: #B8AF9E;
+  --text: #1A1814;
+  --text-muted: #6B6355;
+  --text-light: #9B907E;
+  --accent: #2C4A3E;
+  --accent-light: #EAF0ED;
+  --gold: #8B6914;
+  --gold-light: #F5EDD6;
+  --danger: #7A2020;
+  --danger-light: #F5E8E8;
+  --success: #1A4A2E;
+  --success-light: #E8F0EB;
+  --warn: #6B4A00;
+  --warn-light: #FBF3E0;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.logo-badge {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.timer-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 14px;
+}
+.timer-pill.warn { background: var(--warn-light); border-color: var(--warn); color: var(--warn); }
+.timer-pill.danger { background: var(--danger-light); border-color: var(--danger); color: var(--danger); }
+.timer-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border-dark); }
+.timer-dot.running { background: var(--success); animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── HOME SCREEN ── */
+.home-hero {
+  max-width: 680px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+}
+.home-hero h1 {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.home-hero p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+.divider-line {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+.section-heading {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.exam-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 3rem;
+}
+.exam-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.exam-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(44,74,62,0.08);
+}
+.exam-card-left { flex: 1; }
+.exam-card-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.exam-card-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.exam-card-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.exam-card-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+.meta-badge {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+}
+.meta-detail {
+  font-size: 12px;
+  color: var(--text-light);
+  display: block;
+}
+.arrow-icon {
+  color: var(--text-light);
+  font-size: 18px;
+  transition: transform 0.15s;
+}
+.exam-card:hover .arrow-icon { transform: translateX(3px); color: var(--accent); }
+
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 1rem 1.25rem;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+.info-box strong { color: var(--text); }
+
+/* ── EXAM SCREEN ── */
+.exam-layout {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+.exam-progress-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.exam-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.exam-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.exam-section-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 700;
+}
+.exam-section-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.answered-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: right;
+}
+.answered-count strong { color: var(--text); }
+
+/* MC navigation tabs */
+.mc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.mc-nav-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.1s;
+  font-family: var(--font-sans);
+}
+.mc-nav-btn.answered { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+.mc-nav-btn.current { background: var(--accent); border-color: var(--accent); color: #fff; }
+.mc-nav-btn.correct-mark { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.mc-nav-btn.incorrect-mark { background: var(--danger-light); border-color: var(--danger); color: var(--danger); }
+
+/* Single question view */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1rem;
+}
+.q-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+.q-text {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+.q-source {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  border-left: 2px solid var(--border-dark);
+  padding-left: 12px;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+  background: var(--bg);
+  transition: border-color 0.1s, background 0.1s;
+  font-family: var(--font-sans);
+  text-align: left;
+  width: 100%;
+}
+.opt:hover:not(.locked) { border-color: var(--accent); background: var(--accent-light); }
+.opt.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+.opt.correct { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.opt.incorrect { border-color: var(--danger); background: var(--danger-light); color: var(--danger); }
+.opt-letter {
+  font-weight: 700;
+  font-size: 12px;
+  min-width: 20px;
+  margin-top: 1px;
+  font-family: var(--font-sans);
+}
+
+.q-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.btn {
+  padding: 9px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.1s;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+.btn:hover { border-color: var(--border-dark); }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover { background: #1e3329; border-color: #1e3329; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+
+/* SA Section */
+.sa-section { margin-top: 2.5rem; }
+.sa-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+.sa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.sa-q-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.marks-badge {
+  background: var(--gold-light);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.sa-prompt {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.sa-area {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+}
+.sa-area:focus { outline: none; border-color: var(--accent); }
+.sa-hint {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 6px;
+}
+
+/* Submit section */
+.submit-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.submit-section h3 {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.submit-section p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+.submit-grid {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Results */
+.results-screen { max-width: 680px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+.results-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.results-hero h2 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  margin-bottom: 0.5rem;
+}
+.score-display {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin: 1rem 0 0.25rem;
+}
+.score-sub { font-size: 14px; color: var(--text-muted); }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 1.5rem 0 0;
+}
+.stat-cell {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  text-align: center;
+}
+.stat-val { font-size: 22px; font-weight: 500; }
+.stat-val.green { color: var(--success); }
+.stat-val.red { color: var(--danger); }
+.stat-label { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+.review-list { margin-top: 1.5rem; }
+.review-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.review-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+.review-q { font-size: 13px; color: var(--text); line-height: 1.5; }
+.review-correct { font-size: 12px; color: var(--success); margin-top: 3px; }
+.review-wrong { font-size: 12px; color: var(--danger); margin-top: 3px; }
+
+.results-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+
+@media (max-width: 600px) {
+  .home-hero h1 { font-size: 26px; }
+  .exam-section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .site-header { padding: 0 1rem; }
+  .exam-layout, .results-screen { padding: 1.25rem 1rem 3rem; }
+  .home-hero { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo" onclick="goHome()">
+    <span class="logo-badge">HSC</span>
+    Studies of Religion
+  </div>
+  <div class="header-right">
+    <div class="timer-pill hidden" id="global-timer">
+      <span class="timer-dot" id="timer-dot"></span>
+      <span id="timer-display">60:00</span>
+    </div>
+    <span id="header-btn-area"></span>
+  </div>
+</header>
+
+<!-- HOME SCREEN -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <h1>Practice Exams</h1>
+    <p>Section I practice papers for HSC Studies of Religion. Select a test below to begin.</p>
+
+    <div class="section-heading">Available Tests</div>
+    <div class="exam-cards" id="exam-cards-list"></div>
+
+    <hr class="divider-line">
+    <div class="info-box">
+      <strong>How it works:</strong> Each test mirrors the HSC Section I format — 20 multiple choice questions and 3 short answer questions. A timer runs for 60 minutes. Multiple choice is marked automatically; short answer responses can be reviewed for feedback.
+    </div>
+  </div>
+</div>
+
+<!-- EXAM SCREEN -->
+<div class="screen" id="screen-exam">
+  <div class="exam-layout">
+    <div class="exam-progress-bar"><div class="exam-progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+    <div class="exam-section-header">
+      <div>
+        <div class="exam-section-title" id="exam-title"></div>
+        <div class="exam-section-sub" id="exam-sub"></div>
+      </div>
+      <div class="answered-count"><strong id="ans-count">0</strong> / 20 answered</div>
+    </div>
+
+    <div class="section-heading">Question navigator</div>
+    <div class="mc-nav" id="mc-nav"></div>
+
+    <!-- Single question card -->
+    <div class="q-card" id="q-card">
+      <div class="q-label" id="q-label">Question 1 of 20</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="opts" id="q-opts"></div>
+    </div>
+
+    <div class="q-nav">
+      <button class="btn" id="btn-prev" onclick="prevQ()">← Previous</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+    </div>
+
+    <div class="sa-section">
+      <hr class="divider-line">
+      <div class="exam-section-header">
+        <div>
+          <div class="exam-section-title">Short Answer Questions</div>
+          <div class="exam-section-sub">Answer all three questions</div>
+        </div>
+        <div class="answered-count">20 marks total</div>
+      </div>
+      <div id="sa-blocks"></div>
+    </div>
+
+    <div class="submit-section">
+      <h3>Ready to submit?</h3>
+      <p>Multiple choice will be marked immediately. Short answers can be sent for written feedback.</p>
+      <div class="submit-grid">
+        <button class="btn btn-primary" onclick="submitExam()">Submit exam</button>
+        <button class="btn" onclick="goHome()">← Back to tests</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div class="screen" id="screen-results">
+  <div class="results-screen">
+    <div class="results-hero">
+      <h2 id="result-exam-name"></h2>
+      <div class="score-display" id="result-score"></div>
+      <div class="score-sub" id="result-pct"></div>
+      <div class="stats-grid">
+        <div class="stat-cell"><div class="stat-val green" id="stat-correct"></div><div class="stat-label">Correct</div></div>
+        <div class="stat-cell"><div class="stat-val red" id="stat-wrong"></div><div class="stat-label">Incorrect</div></div>
+        <div class="stat-cell"><div class="stat-val" id="stat-skipped"></div><div class="stat-label">Unanswered</div></div>
+      </div>
+    </div>
+
+    <div class="section-heading">Question review</div>
+    <div class="review-list" id="review-list"></div>
+
+    <div class="results-actions">
+      <button class="btn btn-primary" onclick="reviewSA()">Send short answers for feedback ↗</button>
+      <button class="btn" onclick="retakeExam()">Retake this test</button>
+      <button class="btn" onclick="goHome()">← All tests</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  EXAM DATA
+// ═══════════════════════════════════════════════
+const EXAMS = [
+  {
+    id: 'paper1',
+    tag: 'Paper 1',
+    title: 'Aboriginal Spiritualities & Religious Landscape',
+    description: 'Dreaming, kinship, dispossession, land rights, and religious adherence since 1945',
+    time: 60,
+    mc: [
+      { q: "Which of the following best describes the concept of the Dreaming in Aboriginal spirituality?", opts: ["A historical account of Aboriginal battles and wars","A spiritual framework explaining creation, law, customs and identity","A ceremony performed only at initiation rites","A system of government used by Aboriginal Elders"], a: 1 },
+      { q: "The 'connection sequence' in Aboriginal spirituality is best described as:", opts: ["Kinship → Totems → Country → Dreaming → Responsibilities","Country → Dreaming → Kinship → Totems → Responsibilities","Dreaming → Country → Totems → Kinship → Responsibilities","Totems → Kinship → Dreaming → Country → Responsibilities"], a: 1 },
+      { q: "Which of the following best defines 'kinship' in an Aboriginal context?", opts: ["The biological relationship between immediate family members only","A system connecting people, animals, plants, land and nature through obligations","A legal framework for land ownership claims","A ceremonial structure for Elders"], a: 1 },
+      { q: "Totems in Aboriginal spirituality are most closely associated with:", opts: ["Government authority over sacred land","Personal property rights over animals","Spiritual responsibility for protecting related species and environments","The right to perform initiation ceremonies"], a: 2 },
+      { q: "The Mabo Decision of 1992 was significant because it:", opts: ["Established the first Aboriginal reserve","Granted Aboriginal people full voting rights","Overturned the legal doctrine of Terra Nullius","Created the Native Title Act 1993"], a: 2 },
+      { q: "Which of the following is NOT an effect of dispossession on Aboriginal spiritualities?", opts: ["Loss of connection to Country","Destruction of language and culture","Strengthening of totem systems","Breakdown of kinship groups"], a: 2 },
+      { q: "Assimilation policy was officially adopted in Australia in:", opts: ["1901","1920","1937","1967"], a: 2 },
+      { q: "The Wik Decision of 1996 ruled that:", opts: ["Native Title was extinguished by pastoral leases","Native Title can coexist with pastoral leases","All pastoral leases were to be cancelled","Aboriginal people owned all pastoral land"], a: 1 },
+      { q: "According to the 2021 Census, which statement about religion in Australia is correct?", opts: ["Christianity remains above 60% of the population","'No Religion' is now the largest single census category","Islam is the second largest religion in Australia","Buddhism has declined significantly since 2001"], a: 1 },
+      { q: "Which is the primary driver of the growth of Hinduism and Buddhism in Australia since 1945?", opts: ["Conversion of existing Christian communities","The New Age movement","Immigration from South and South-East Asia","Denominational switching"], a: 2 },
+      { q: "Secularism in Australia most accurately refers to:", opts: ["The belief that religion should be abolished","The separation of religion from government and public life","The dominance of Christianity in public institutions","A form of interfaith dialogue between major world religions"], a: 1 },
+      { q: "'Conspirituality' is best defined as:", opts: ["A branch of Aboriginal spiritual practice","A form of ecumenism between Christian denominations","A combination of New Age spirituality and conspiracy theories","A government policy relating to religious freedom"], a: 2 },
+      { q: "Ecumenism refers to:", opts: ["Dialogue between Christianity and Islam","Cooperation and unity between different Christian denominations","The spread of Christianity through missionary work","Government regulation of religious organisations"], a: 1 },
+      { q: "The National Council of Churches in Australia (NCCA) primarily aims to:", opts: ["Replace individual Christian denominations with one unified church","Promote Christian unity, refugee support and social justice","Regulate the relationship between church and state","Convert non-Christian Australians to Christianity"], a: 1 },
+      { q: "Interfaith dialogue in multicultural Australia is most important because it:", opts: ["Encourages all Australians to adopt one religion","Promotes social cohesion, reduces prejudice and supports peaceful coexistence","Allows religious leaders to influence government policy","Replaces the need for ecumenical movements within Christianity"], a: 1 },
+      { q: "Which best describes the role of Christian churches in Australia's reconciliation process?", opts: ["Churches were uninvolved in colonisation and have no role in reconciliation","Churches actively resisted assimilation policies throughout the colonial period","Many churches participated in missions and now support reconciliation","Churches formally apologised to Aboriginal people in 1901"], a: 2 },
+      { q: "Native Title under the Native Title Act 1993 requires claimants to demonstrate:", opts: ["That their land was never subject to a pastoral lease","Continuous connection to the land through tradition","Written records of land ownership prior to 1788","Approval from the relevant state government"], a: 1 },
+      { q: "Which factor contributed to the decline of Christianity in Australia since 1945?", opts: ["Increased government restrictions on Christian practice","A combination of scientific progress, church scandals and changing social values","The introduction of compulsory religious education in schools","Rapid growth of Islam and its influence on Christian communities"], a: 1 },
+      { q: "In Aboriginal spirituality, the relationship between people and land is best described as:", opts: ["People own and have rights over the land","People are responsible for caring for land, which is sacred and life-giving","Land is allocated by Elders and cannot be transferred","Land belongs to the Dreaming and cannot be accessed by living people"], a: 1 },
+      { q: "Denominational switching in the Australian religious landscape refers to:", opts: ["Converting from one world religion to another","Moving from a religious to a non-religious identity","Changing from one Christian denomination to another","The process by which immigrants adopt mainstream Australian religious practices"], a: 2 }
+    ],
+    sa: [
+      { num: 21, marks: 4, prompt: "Explain the relationship between kinship, totems and the Dreaming in Aboriginal spirituality. In your answer, discuss how these concepts create obligations for Aboriginal people.", hint: "~150–200 words · Link all three concepts clearly" },
+      { num: 22, marks: 8, prompt: "Describe and analyse the changing patterns of religious adherence in Australia from 1945 to the present. Refer to the decline of Christianity, the rise of 'No Religion', the growth of non-Christian religions, and explain the factors driving these changes.", hint: "~300–350 words · Use specific data or examples where possible" },
+      { num: 23, marks: 8, prompt: "Examine the role of ecumenism and interfaith dialogue in contemporary Australia. In your answer, refer to at least ONE named ecumenical organisation, discuss the importance of interfaith dialogue in a multicultural society, and consider how religious traditions have contributed to the process of Reconciliation with Aboriginal peoples.", hint: "~300–350 words · Name specific organisations and examples" }
+    ]
+  },
+  {
+    id: 'paper2',
+    tag: 'Paper 2',
+    title: 'Land Rights, Dialogue & Religious Change',
+    description: 'Land rights movement, Mabo and Wik, interfaith dialogue, denominational switching, and New Age spirituality',
+    time: 60,
+    mc: [
+      { q: "The doctrine of Terra Nullius, overturned by the Mabo Decision, asserted that:", opts: ["Aboriginal people had no spiritual connection to land","Australia was legally unoccupied at the time of British settlement","Aboriginal land rights were protected under British law","Native Title had existed since the Dreaming"], a: 1 },
+      { q: "Which of the following best explains why many Aboriginal people cannot prove continuous connection to land for Native Title claims?", opts: ["Aboriginal communities chose not to maintain records of land use","Government policies such as the Stolen Generation disrupted kinship and culture","The Native Title Act 1993 was not properly implemented","Aboriginal Elders refused to participate in the legal process"], a: 1 },
+      { q: "In Aboriginal spirituality, sacred sites are significant because:", opts: ["They are owned by the government on behalf of Aboriginal communities","They are connected to Dreaming stories and must be protected as spiritual obligations","They generate income for Aboriginal communities through tourism","They are the locations where Elders hold political power"], a: 1 },
+      { q: "Which of the following statements about 'Country' in Aboriginal spirituality is correct?", opts: ["Country refers only to the physical boundaries of a nation state","Country is the land Aboriginal people belong to spiritually, culturally and through the Dreaming","Country is a legal term used only in Native Title claims","Country is synonymous with the concept of a pastoral lease"], a: 1 },
+      { q: "The Anglican Church's formal apology to Aboriginal people was made in:", opts: ["1972","1982","1988","1996"], a: 2 },
+      { q: "Which of the following best describes 'sectarianism' in the Australian Christian context?", opts: ["The establishment of new Christian denominations","Conflict and discrimination between Catholic and Protestant communities","A form of interfaith dialogue between Christians and non-Christians","The process of converting non-Christians to Christianity"], a: 1 },
+      { q: "New Age religions in Australia are characterised by:", opts: ["Strict adherence to a single sacred text","Centralised leadership and formal membership requirements","Personalised spirituality focused on wellbeing and self-discovery","Strong opposition to environmental concerns"], a: 2 },
+      { q: "The main reason immigration has diversified Australia's religious landscape since 1945 is:", opts: ["Immigrants converted existing Australians to new religions","Immigrants brought their own religious traditions, establishing new communities","The government promoted non-Christian religions","Australian churches actively recruited overseas migrants"], a: 1 },
+      { q: "Which of the following correctly pairs a migrant source country with its most commonly brought religion?", opts: ["Philippines — Islam","Vietnam — Hinduism","India — Hinduism and Sikhism","China — Christianity"], a: 2 },
+      { q: "Self-determination, which replaced assimilation policy in 1972, gave Aboriginal people:", opts: ["Full ownership of all traditional lands","Greater control over their own affairs and cultural practices","The right to veto federal legislation","Access to native title without court applications"], a: 1 },
+      { q: "Smoking ceremonies in Aboriginal culture serve to:", opts: ["Mark the end of a kinship dispute","Cleanse and welcome people to Country","Initiate young men into adulthood","Transfer totem responsibilities between generations"], a: 1 },
+      { q: "The NSW Ecumenical Council primarily focuses on:", opts: ["Converting non-Christians in New South Wales","Inter-church cooperation and peace and justice initiatives","Regulating Christian schools in New South Wales","Replacing denominational churches with a single state church"], a: 1 },
+      { q: "Which of the following is a key characteristic that distinguishes interfaith dialogue from ecumenism?", opts: ["Interfaith dialogue only occurs between Christian denominations","Interfaith dialogue involves communication between different world religions, not just Christian groups","Ecumenism promotes conversion between religions","Ecumenism includes Muslim and Jewish participation"], a: 1 },
+      { q: "Animism, relevant to Aboriginal spirituality, is the belief that:", opts: ["All people share a common spiritual ancestor","Only humans possess spiritual qualities","All of nature, including animals and plants, is sacred","Spiritual knowledge is exclusively held by Elders"], a: 2 },
+      { q: "The Stolen Generation refers to:", opts: ["Aboriginal children who were voluntarily placed in mission schools","Aboriginal children forcibly removed from their families under assimilation policies","Aboriginal adults displaced from their Country during colonisation","Aboriginal Elders who were imprisoned during the assimilation period"], a: 1 },
+      { q: "Which of the following best describes a 'pastoral lease'?", opts: ["A legal agreement for Aboriginal communities to manage their Country","Government land leased for farming or agriculture","A form of Native Title recognised under the 1993 Act","A land grant given to Aboriginal people after the Mabo Decision"], a: 1 },
+      { q: "The concept of 'estate' in Aboriginal culture refers to:", opts: ["Financial assets held by an Aboriginal community","Sacred land or territory connected to a clan or local group","The physical location of an Aboriginal reserve","Land owned by the Crown on behalf of Aboriginal people"], a: 1 },
+      { q: "One reason for the growth of New Age spirituality in Australia is:", opts: ["Increased government funding for non-traditional religions","Dissatisfaction with institutional religion and a search for personal meaning","The decline of immigration from non-Christian countries","Growing influence of the Catholic Church in secular life"], a: 1 },
+      { q: "Which of the following reflects the 2021 Census finding about Christianity in Australia?", opts: ["Christianity is growing due to immigration from the Philippines","Christianity dropped below 50% of the population for the first time","Anglican numbers increased significantly","The Catholic Church remained stable at around 25%"], a: 1 },
+      { q: "In Aboriginal spirituality, Elders are significant because:", opts: ["They hold legal title to sacred lands","They gain status and authority through wisdom accumulated over time, not age alone","They are appointed by government to lead Aboriginal communities","They are the only members of a community permitted to perform ceremonies"], a: 1 }
+    ],
+    sa: [
+      { num: 21, marks: 4, prompt: "Explain the significance of the Mabo Decision (1992) for Aboriginal spiritualities. In your answer, discuss both what was achieved and what limitations remained for Aboriginal communities seeking recognition of their connection to Country.", hint: "~150–200 words · Acknowledge both sides — achievement and limitation" },
+      { num: 22, marks: 8, prompt: "Analyse how government policies — including missions, reserves, assimilation and the Stolen Generation — affected Aboriginal spiritualities. Consider the long-term consequences of dispossession on identity, kinship, and spiritual practice.", hint: "~300–350 words · Cover multiple policies and link to spiritual impact" },
+      { num: 23, marks: 8, prompt: "Discuss the ways in which religious diversity in Australia has changed since 1945. In your answer, refer to the causes and consequences of these changes, including the role of immigration, the growth of 'No Religion', and shifts in Christian adherence. You may also refer to ecumenism or interfaith dialogue where relevant.", hint: "~300–350 words · Use examples and census data to support your argument" }
+    ]
+  },
+  {
+    id: 'paper3',
+    tag: 'Paper 3',
+    title: 'Mixed Topics Revision',
+    description: 'A comprehensive mixed paper covering all three content areas — ideal for final revision',
+    time: 60,
+    mc: [
+      { q: "Which of the following best summarises the role of ceremonies in maintaining Aboriginal spiritual life?", opts: ["Ceremonies are purely social events with no spiritual significance","Ceremonies preserve Dreaming knowledge, cultural identity and connection to ancestors","Ceremonies are conducted exclusively by initiated men","Ceremonies have been replaced by Christian practices since colonisation"], a: 1 },
+      { q: "Which statement correctly describes the impact of missions on Aboriginal spiritualities?", opts: ["Missions preserved Aboriginal language and culture","Missions encouraged Aboriginal communities to maintain their Dreaming traditions","Missions aimed to convert Aboriginal people to Christianity and often banned traditional practices","Missions were government-funded secular institutions"], a: 2 },
+      { q: "The connection between body paint symbols and Aboriginal spiritual identity relates to:", opts: ["Political status within an Aboriginal community","Totems and spiritual identity, used in ceremonies","Legal entitlement to land under Native Title","Family relationships recognised under kinship law"], a: 1 },
+      { q: "Which of the following is the best example of denominational switching?", opts: ["A Catholic converting to Islam","An atheist becoming a Buddhist","An Anglican who begins attending a Pentecostal church","A Hindu migrating to Australia and continuing to practise Hinduism"], a: 2 },
+      { q: "The 2021 Census revealed that the percentage of Australians identifying as Christian was:", opts: ["55.3%","49.9%","43.9%","38.9%"], a: 2 },
+      { q: "Which of the following factors most directly caused the Stolen Generation?", opts: ["The Native Title Act 1993","The assimilation policy adopted in 1937","The Wik Decision of 1996","The introduction of self-determination in 1972"], a: 1 },
+      { q: "The concept of 'no religion' as a census category has grown primarily because:", opts: ["The government removed religion as a legal category","Scientific progress, church scandals and shifting social values led many to abandon formal religious affiliation","Most immigrants are secular and non-religious","All Christian denominations declined equally across Australia"], a: 1 },
+      { q: "Which of the following is an accurate description of the Native Title Act 1993?", opts: ["It gave all Aboriginal people immediate ownership of traditional lands","It established legal processes for recognising Native Title and handling claims","It overturned the Mabo Decision","It extinguished Native Title in areas covered by pastoral leases"], a: 1 },
+      { q: "Interfaith dialogue differs from ecumenism in that:", opts: ["Interfaith dialogue focuses on unity within a single religion","Ecumenism involves only non-Christian religions","Interfaith dialogue involves communication between entirely different world religions","Ecumenism rejects the idea of cooperation between denominations"], a: 2 },
+      { q: "Which of the following correctly describes one goal of the NCCA?", opts: ["To establish a single national Christian church","To promote Christian unity and advocate on social justice issues including refugee support","To convert non-Christian Australians","To represent Christian interests in federal parliament"], a: 1 },
+      { q: "Which of the following is NOT a feature of New Age religions?", opts: ["Personalised spirituality","Practices such as meditation, astrology and crystals","Strict adherence to a single sacred text","Focus on wellbeing and self-discovery"], a: 2 },
+      { q: "In Aboriginal spirituality, responsibilities to land and people are best understood as:", opts: ["Optional cultural traditions passed down voluntarily","Legal rights negotiated with state governments","Obligations arising from the intersection of Dreaming, kinship and totems","Personal choices made by individual Aboriginal people"], a: 2 },
+      { q: "Which of the following best explains why kinship extends beyond immediate family in Aboriginal society?", opts: ["Aboriginal law prohibits recognition of nuclear family units","Kinship connects people to animals, plants, land and nature, not just to human relatives","Kinship is a modern legal concept introduced after colonisation","Kinship only applies to ceremonial contexts"], a: 1 },
+      { q: "The primary purpose of interfaith dialogue in a multicultural society is to:", opts: ["Determine which religion is most compatible with Australian law","Promote mutual respect, understanding and social harmony between different religious communities","Identify common texts shared by all world religions","Assist governments in regulating religious organisations"], a: 1 },
+      { q: "The Anglican Church apology in 1988 was significant in the context of Reconciliation because:", opts: ["It provided financial compensation to Aboriginal communities","It represented a formal acknowledgement of the church's role in colonisation and a commitment to reconciliation","It granted Aboriginal people ownership of former mission lands","It established a new interfaith council between Christian and Aboriginal spiritual leaders"], a: 1 },
+      { q: "Which of the following is most likely to lead a person to switch Christian denominations?", opts: ["Government legislation","Changes in personal values, marriage, or social influences","A formal invitation from a church leader","Immigration to a new country"], a: 1 },
+      { q: "The spiritual significance of sacred sites in Aboriginal culture includes:", opts: ["Their economic value to Aboriginal communities","Their connection to Dreaming stories and their role as places requiring spiritual care","Their status as tourist attractions managed by government","Their use as locations for political decision-making by Elders"], a: 1 },
+      { q: "The introduction of self-determination in 1972 was significant because it:", opts: ["Returned all traditional lands to Aboriginal communities","Ended the legal basis for Native Title claims","Replaced assimilation and gave Aboriginal people greater control over their own affairs","Established the first Aboriginal reserve in Australia"], a: 2 },
+      { q: "Which of the following best describes the impact of the Wik Decision on the relationship between Native Title and pastoral leases?", opts: ["Pastoral leases permanently extinguish Native Title","Native Title and pastoral leases can coexist, with both rights operating over the same land","Pastoral leases were declared invalid by the High Court","Aboriginal people were given priority over pastoralists in land use decisions"], a: 1 },
+      { q: "Which of the following is a consequence of religious diversity brought about by immigration to Australia?", opts: ["The decline of all forms of religious practice in Australia","The establishment of Hindu, Buddhist, Sikh and Islamic communities alongside existing Christian ones","The replacement of Christianity as the dominant religion","An increase in sectarian conflict between Christian denominations"], a: 1 }
+    ],
+    sa: [
+      { num: 21, marks: 4, prompt: "Using examples, explain how the Dreaming shapes the spiritual, social and environmental obligations of Aboriginal people. Refer to at least TWO concepts from Aboriginal spirituality in your response.", hint: "~150–200 words · Be specific — name concepts and explain how they connect" },
+      { num: 22, marks: 8, prompt: "Evaluate the effectiveness of reconciliation efforts in Australia, with reference to the role of religious traditions and organisations. In your answer, consider both the actions taken and the ongoing challenges that remain.", hint: "~300–350 words · Be balanced — note achievements and limitations" },
+      { num: 23, marks: 8, prompt: "To what extent has Australia become a more religiously diverse society since 1945? In your answer, discuss the factors driving religious change, the current religious landscape as reflected in census data, and the role of ecumenical and interfaith movements in managing religious diversity.", hint: "~300–350 words · Use 'to what extent' — argue a position with evidence" }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let currentExam = null;
+let currentQ = 0;
+let selected = {};
+let submitted = false;
+let timerSeconds = 0;
+let timerInterval = null;
+let timerRunning = false;
+let saAnswers = {};
+
+// ═══════════════════════════════════════════════
+//  ROUTING
+// ═══════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+function goHome() {
+  stopTimer();
+  showScreen('home');
+  document.getElementById('global-timer').classList.add('hidden');
+  document.getElementById('header-btn-area').innerHTML = '';
+}
+
+// ═══════════════════════════════════════════════
+//  HOME
+// ═══════════════════════════════════════════════
+function renderHome() {
+  const c = document.getElementById('exam-cards-list');
+  c.innerHTML = EXAMS.map((e, i) => `
+    <div class="exam-card" onclick="startExam('${e.id}')">
+      <div class="exam-card-left">
+        <div class="exam-card-tag">${e.tag}</div>
+        <div class="exam-card-title">${e.title}</div>
+        <div class="exam-card-sub">${e.description}</div>
+      </div>
+      <div class="exam-card-meta">
+        <div class="meta-badge">${e.time} min</div>
+        <span class="meta-detail">20 MC · 3 SAQ</span>
+      </div>
+      <span class="arrow-icon">→</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════
+//  START EXAM
+// ═══════════════════════════════════════════════
+function startExam(id) {
+  currentExam = EXAMS.find(e => e.id === id);
+  currentQ = 0;
+  selected = {};
+  submitted = false;
+  saAnswers = {};
+  timerSeconds = currentExam.time * 60;
+
+  document.getElementById('exam-title').textContent = currentExam.title;
+  document.getElementById('exam-sub').textContent = currentExam.tag + ' · ' + currentExam.time + ' minutes · 40 marks';
+
+  buildMCNav();
+  buildSABlocks();
+  renderQuestion();
+  updateProgress();
+
+  showScreen('exam');
+
+  document.getElementById('global-timer').classList.remove('hidden');
+  updateTimerDisplay();
+  startTimer();
+  document.getElementById('header-btn-area').innerHTML = `<button class="btn" onclick="goHome()" style="font-size:12px;padding:5px 12px;">← Exit</button>`;
+}
+
+function retakeExam() {
+  startExam(currentExam.id);
+  showScreen('exam');
+}
+
+// ═══════════════════════════════════════════════
+//  MC NAVIGATION
+// ═══════════════════════════════════════════════
+function buildMCNav() {
+  const nav = document.getElementById('mc-nav');
+  nav.innerHTML = currentExam.mc.map((q, i) =>
+    `<button class="mc-nav-btn" id="nav-${i}" onclick="goToQ(${i})">${i + 1}</button>`
+  ).join('');
+}
+
+function updateNavBtn(i) {
+  const btn = document.getElementById('nav-' + i);
+  if (!btn) return;
+  btn.className = 'mc-nav-btn';
+  if (submitted) {
+    if (selected[i] === undefined) { /* unanswered */ }
+    else if (selected[i] === currentExam.mc[i].a) btn.classList.add('correct-mark');
+    else btn.classList.add('incorrect-mark');
+  } else {
+    if (i === currentQ) btn.classList.add('current');
+    else if (selected[i] !== undefined) btn.classList.add('answered');
+  }
+}
+
+function refreshNav() {
+  currentExam.mc.forEach((_, i) => updateNavBtn(i));
+}
+
+function goToQ(i) {
+  currentQ = i;
+  renderQuestion();
+  refreshNav();
+}
+function prevQ() { if (currentQ > 0) goToQ(currentQ - 1); }
+function nextQ() { if (currentQ < currentExam.mc.length - 1) goToQ(currentQ + 1); }
+
+// ═══════════════════════════════════════════════
+//  QUESTION RENDER
+// ═══════════════════════════════════════════════
+function renderQuestion() {
+  const q = currentExam.mc[currentQ];
+  document.getElementById('q-label').textContent = 'Question ' + (currentQ + 1) + ' of ' + currentExam.mc.length;
+  document.getElementById('q-text').textContent = q.q;
+
+  const opts = document.getElementById('q-opts');
+  opts.innerHTML = q.opts.map((o, j) => {
+    let cls = 'opt';
+    if (submitted) {
+      cls += ' locked';
+      if (j === q.a) cls += ' correct';
+      else if (selected[currentQ] === j && j !== q.a) cls += ' incorrect';
+    } else {
+      if (selected[currentQ] === j) cls += ' selected';
+    }
+    return `<button class="${cls}" onclick="selectOpt(${j})">
+      <span class="opt-letter">${['A','B','C','D'][j]}</span>
+      <span>${o}</span>
+    </button>`;
+  }).join('');
+
+  document.getElementById('btn-prev').disabled = currentQ === 0;
+  document.getElementById('btn-next').disabled = currentQ === currentExam.mc.length - 1;
+  updateProgress();
+}
+
+function selectOpt(j) {
+  if (submitted) return;
+  selected[currentQ] = j;
+  renderQuestion();
+  refreshNav();
+  document.getElementById('ans-count').textContent = Object.keys(selected).length;
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = (Object.keys(selected).length / currentExam.mc.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════════
+//  SA BLOCKS
+// ═══════════════════════════════════════════════
+function buildSABlocks() {
+  const c = document.getElementById('sa-blocks');
+  c.innerHTML = currentExam.sa.map(q => `
+    <div class="sa-block">
+      <div class="sa-header">
+        <div>
+          <div class="sa-q-label">Question ${q.num}</div>
+        </div>
+        <div class="marks-badge">${q.marks} marks</div>
+      </div>
+      <div class="sa-prompt">${q.prompt}</div>
+      <textarea class="sa-area" id="sa-${q.num}" placeholder="Write your response here…" rows="${q.marks >= 8 ? 10 : 6}" oninput="saAnswers[${q.num}]=this.value"></textarea>
+      <div class="sa-hint">${q.hint}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════
+//  SUBMIT
+// ═══════════════════════════════════════════════
+function submitExam() {
+  submitted = true;
+  stopTimer();
+  renderQuestion();
+  refreshNav();
+
+  // Collect SA
+  currentExam.sa.forEach(q => {
+    const el = document.getElementById('sa-' + q.num);
+    if (el) saAnswers[q.num] = el.value;
+  });
+
+  let correct = 0;
+  currentExam.mc.forEach((q, i) => { if (selected[i] === q.a) correct++; });
+  const wrong = Object.keys(selected).filter(i => selected[i] !== currentExam.mc[i].a).length;
+  const skipped = currentExam.mc.length - Object.keys(selected).length;
+  const pct = Math.round(correct / currentExam.mc.length * 100);
+
+  document.getElementById('result-exam-name').textContent = currentExam.tag + ' — ' + currentExam.title;
+  document.getElementById('result-score').textContent = correct + '/20';
+  document.getElementById('result-pct').textContent = pct + '% — ' + grade(pct);
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-skipped').textContent = skipped;
+
+  // Review list
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = currentExam.mc.map((q, i) => {
+    const isCorrect = selected[i] === q.a;
+    const unanswered = selected[i] === undefined;
+    const icon = unanswered ? '○' : isCorrect ? '✓' : '✗';
+    const iconCls = unanswered ? '' : isCorrect ? 'review-icon' : 'review-icon';
+    const style = isCorrect ? 'color:var(--success)' : unanswered ? 'color:var(--text-light)' : 'color:var(--danger)';
+    const detail = unanswered
+      ? `<div class="review-correct">Not answered — correct answer: ${q.opts[q.a]}</div>`
+      : isCorrect
+        ? `<div class="review-correct">Correct</div>`
+        : `<div class="review-wrong">Your answer: ${q.opts[selected[i]]} &nbsp;·&nbsp; Correct: ${q.opts[q.a]}</div>`;
+    return `<div class="review-item">
+      <div class="review-icon" style="${style}">${icon}</div>
+      <div>
+        <div class="review-q">${i + 1}. ${q.q}</div>
+        ${detail}
+      </div>
+    </div>`;
+  }).join('');
+
+  showScreen('results');
+  document.getElementById('header-btn-area').innerHTML = `<button class="btn" onclick="goHome()" style="font-size:12px;padding:5px 12px;">← All tests</button>`;
+}
+
+function grade(pct) {
+  if (pct >= 90) return 'Band 6';
+  if (pct >= 80) return 'Band 5';
+  if (pct >= 70) return 'Band 4';
+  if (pct >= 60) return 'Band 3';
+  if (pct >= 50) return 'Band 2';
+  return 'Band 1';
+}
+
+function reviewSA() {
+  const lines = currentExam.sa.map(q => {
+    const text = (saAnswers[q.num] || '').trim();
+    return `Question ${q.num} (${q.marks} marks):\n${q.prompt}\n\nStudent response:\n${text || '[No response provided]'}`;
+  }).join('\n\n---\n\n');
+  const msg = `Please review these HSC Studies of Religion short answer responses from ${currentExam.tag}. For each response, provide feedback on: accuracy and use of syllabus content, appropriate use of terminology, and how well the question is addressed. Note where marks would likely be gained or lost, and give a suggested mark out of the total available.\n\n${lines}`;
+  if (typeof sendPrompt === 'function') sendPrompt(msg);
+  else alert('Open this site inside Claude to use the feedback feature.');
+}
+
+// ═══════════════════════════════════════════════
+//  TIMER
+// ═══════════════════════════════════════════════
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const display = document.getElementById('timer-display');
+  const pill = document.getElementById('global-timer');
+  const dot = document.getElementById('timer-dot');
+  if (display) display.textContent = pad(m) + ':' + pad(s);
+  if (pill) {
+    pill.className = 'timer-pill' + (timerSeconds <= 300 ? ' danger' : timerSeconds <= 600 ? ' warn' : '');
+  }
+  if (dot) dot.className = 'timer-dot' + (timerRunning ? ' running' : '');
+}
+
+function startTimer() {
+  timerRunning = true;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    if (timerSeconds > 0) {
+      timerSeconds--;
+      updateTimerDisplay();
+    } else {
+      stopTimer();
+      alert('Time is up! Please submit your exam.');
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  timerRunning = false;
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+}
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+renderHome();
+</script>
+</body>
+</html>
