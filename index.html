@@ -531,6 +531,162 @@ body {
   flex-wrap: wrap;
 }
 
+/* SA Marking screen */
+.sa-marking-screen { max-width: 720px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+.marking-intro {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.marking-intro h2 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  margin-bottom: 0.4rem;
+}
+.marking-intro p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.steps-list {
+  counter-reset: steps;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 1rem 0 1.5rem;
+}
+.step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.copy-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.copy-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.copy-block-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.15s;
+}
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn.copied { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.copy-block-body {
+  padding: 1.25rem;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
+  max-height: 420px;
+  overflow-y: auto;
+  background: var(--surface);
+}
+.ai-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.ai-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.ai-link:hover { border-color: var(--accent); color: var(--accent); }
+.criteria-accordion { margin-bottom: 1.5rem; }
+.criteria-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.criteria-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+}
+.criteria-toggle:hover { background: var(--bg); }
+.criteria-chevron { font-size: 12px; color: var(--text-light); transition: transform 0.2s; }
+.criteria-toggle.open .criteria-chevron { transform: rotate(180deg); }
+.criteria-body {
+  display: none;
+  padding: 0 1.25rem 1rem;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+}
+.criteria-body.open { display: block; }
+.criteria-body ul { padding-left: 1.2rem; }
+.criteria-body li { margin-bottom: 4px; }
+.criteria-body strong { color: var(--text); }
+
 /* Utility */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
@@ -572,7 +728,7 @@ body {
 
     <hr class="divider-line">
     <div class="info-box">
-      <strong>How it works:</strong> Each test mirrors the HSC Section I format — 20 multiple choice questions and 3 short answer questions. A timer runs for 60 minutes. Multiple choice is marked automatically; short answer responses can be reviewed for feedback.
+      <strong>How it works:</strong> Each test mirrors the HSC Section I format — 20 multiple choice questions and 3 short answer questions. A timer runs for 60 minutes. Multiple choice is marked automatically on submission. Short answers are not marked in the site — after submitting you will receive a ready-made prompt containing your answers and marking criteria to copy into any AI for detailed feedback.
     </div>
   </div>
 </div>
@@ -619,7 +775,7 @@ body {
 
     <div class="submit-section">
       <h3>Ready to submit?</h3>
-      <p>Multiple choice will be marked immediately. Short answers can be sent for written feedback.</p>
+      <p>Multiple choice will be marked immediately. You will then receive a ready-made prompt to copy into an AI for short answer feedback.</p>
       <div class="submit-grid">
         <button class="btn btn-primary" onclick="submitExam()">Submit exam</button>
         <button class="btn" onclick="goHome()">← Back to tests</button>
@@ -646,9 +802,49 @@ body {
     <div class="review-list" id="review-list"></div>
 
     <div class="results-actions">
-      <button class="btn btn-primary" onclick="reviewSA()">Send short answers for feedback ↗</button>
+      <button class="btn btn-primary" onclick="showSAMarking()">Get short answer feedback prompt →</button>
       <button class="btn" onclick="retakeExam()">Retake this test</button>
       <button class="btn" onclick="goHome()">← All tests</button>
+    </div>
+  </div>
+</div>
+
+<!-- SA MARKING SCREEN -->
+<div class="screen" id="screen-marking">
+  <div class="sa-marking-screen">
+    <div class="marking-intro">
+      <h2>Short answer marking</h2>
+      <p>Your responses are not marked in this site. Instead, copy the prompt below into any AI assistant — Claude, ChatGPT, Gemini — and it will assess your answers against HSC marking criteria and give you detailed feedback.</p>
+    </div>
+
+    <div class="section-heading">How to get your short answers marked</div>
+    <div class="steps-list">
+      <div class="step"><div class="step-num">1</div><span>Click <strong>Copy prompt</strong> below to copy everything to your clipboard.</span></div>
+      <div class="step"><div class="step-num">2</div><span>Open an AI assistant — links provided below, or any you have access to.</span></div>
+      <div class="step"><div class="step-num">3</div><span>Paste the prompt and send it. The AI will mark each response and suggest improvements.</span></div>
+    </div>
+
+    <div class="section-heading" style="margin-bottom:0.6rem;">Open an AI assistant</div>
+    <div class="ai-links" style="margin-bottom:1.5rem;">
+      <a class="ai-link" href="https://claude.ai" target="_blank">↗ Claude (Anthropic)</a>
+      <a class="ai-link" href="https://chat.openai.com" target="_blank">↗ ChatGPT (OpenAI)</a>
+      <a class="ai-link" href="https://gemini.google.com" target="_blank">↗ Gemini (Google)</a>
+    </div>
+
+    <div class="copy-block">
+      <div class="copy-block-header">
+        <div class="copy-block-label">Your marking prompt — copy this</div>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">Copy prompt</button>
+      </div>
+      <div class="copy-block-body" id="marking-prompt-body"></div>
+    </div>
+
+    <div class="section-heading">Marking criteria (what the AI uses)</div>
+    <div class="criteria-accordion" id="criteria-accordion"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;">
+      <button class="btn btn-primary" onclick="showScreen('results')">← Back to MC results</button>
+      <button class="btn" onclick="goHome()">All tests</button>
     </div>
   </div>
 </div>
@@ -1004,14 +1200,219 @@ function grade(pct) {
   return 'Band 1';
 }
 
-function reviewSA() {
-  const lines = currentExam.sa.map(q => {
-    const text = (saAnswers[q.num] || '').trim();
-    return `Question ${q.num} (${q.marks} marks):\n${q.prompt}\n\nStudent response:\n${text || '[No response provided]'}`;
-  }).join('\n\n---\n\n');
-  const msg = `Please review these HSC Studies of Religion short answer responses from ${currentExam.tag}. For each response, provide feedback on: accuracy and use of syllabus content, appropriate use of terminology, and how well the question is addressed. Note where marks would likely be gained or lost, and give a suggested mark out of the total available.\n\n${lines}`;
-  if (typeof sendPrompt === 'function') sendPrompt(msg);
-  else alert('Open this site inside Claude to use the feedback feature.');
+// ═══════════════════════════════════════════════
+//  SA MARKING CRITERIA (per paper)
+// ═══════════════════════════════════════════════
+const SA_CRITERIA = {
+  paper1: [
+    {
+      num: 21, marks: 4,
+      criteria: [
+        { band: '4 marks', desc: 'Clearly explains kinship and totems with accurate detail. Explicitly links both concepts to the Dreaming and demonstrates understanding of how they generate obligations. Response is coherent and uses appropriate terminology.' },
+        { band: '3 marks', desc: 'Explains both kinship and totems with reasonable accuracy. Connection to the Dreaming is present but may lack depth or full integration. Terminology mostly appropriate.' },
+        { band: '2 marks', desc: 'Describes at least one concept (kinship or totems) with some accuracy. Reference to the Dreaming may be superficial or implicit. Limited use of terminology.' },
+        { band: '1 mark', desc: 'Makes a relevant statement about Aboriginal spirituality. Little or no connection between concepts. Very limited detail.' },
+      ],
+      keyPoints: ['Kinship connects people, animals, plants, land and nature', 'Totems create responsibility to protect related species and environments', 'Both kinship and totems flow from the Dreaming', 'Obligations arise from the intersection of all three concepts', 'Use of correct terminology: kinship, totem, Dreaming, obligation, Country']
+    },
+    {
+      num: 22, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Provides a comprehensive and well-structured analysis. Addresses decline of Christianity, rise of "No Religion", and growth of non-Christian religions with specific reference to census data or examples. Accurately explains multiple driving factors. Demonstrates deep understanding of the changing religious landscape.' },
+        { band: '5–6 marks', desc: 'Addresses most aspects of the question with reasonable accuracy. Some use of data or examples. Explanation of causes is present but may not be fully developed for all areas.' },
+        { band: '3–4 marks', desc: 'Describes some changes with limited analysis. May address only one or two of the required areas. Limited use of evidence or examples.' },
+        { band: '1–2 marks', desc: 'Makes some relevant observations about religion in Australia. Significant gaps in coverage. Little or no use of evidence.' },
+      ],
+      keyPoints: ['Christianity below 50% in 2021 Census (43.9%)', '"No Religion" now largest single category (38.9%)', 'Growth of Islam, Hinduism, Buddhism, Sikhism through immigration', 'Factors: scientific progress, church scandals, changing values, immigration', 'Immigration as primary driver of non-Christian growth', 'Secularisation as a broader trend', 'Denominational switching within Christianity']
+    },
+    {
+      num: 23, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Examines both ecumenism and interfaith dialogue with depth and accuracy. Names and discusses a specific ecumenical organisation (e.g. NCCA or NSW Ecumenical Council). Clearly articulates the importance of interfaith dialogue in multicultural Australia. Addresses Reconciliation with specific reference to church actions. Well-structured and uses appropriate terminology.' },
+        { band: '5–6 marks', desc: 'Addresses ecumenism and interfaith dialogue with reasonable accuracy. Names an organisation but discussion may be brief. Connection to Reconciliation is present. Some structure and relevant terminology.' },
+        { band: '3–4 marks', desc: 'Touches on ecumenism or interfaith dialogue but not both fully. Organisation may be vaguely referenced. Reconciliation component may be absent or superficial.' },
+        { band: '1–2 marks', desc: 'Makes general statements about religion and dialogue. Little specific detail. Organisation not named or Reconciliation not addressed.' },
+      ],
+      keyPoints: ['NCCA: promotes unity, refugee support, social justice, child safety', 'NSW Ecumenical Council: inter-church cooperation, peace and justice', 'Interfaith dialogue: respect, understanding, harmony between different world religions', 'Importance in multicultural Australia: reduces prejudice, promotes social cohesion', 'Churches involved in missions and Stolen Generation', 'Anglican Church apology 1988; Catholic apology followed', 'Churches now support Reconciliation through advocacy, apologies, support services']
+    }
+  ],
+  paper2: [
+    {
+      num: 21, marks: 4,
+      criteria: [
+        { band: '4 marks', desc: 'Clearly explains the significance of Mabo including what was legally achieved (overturning Terra Nullius, recognition of Native Title) and articulates specific limitations (burden of proof, difficulty proving continuous connection). Balanced and accurate.' },
+        { band: '3 marks', desc: 'Explains significance with reasonable accuracy. Both achievement and limitation addressed but one side may lack detail.' },
+        { band: '2 marks', desc: 'Identifies Mabo as significant and notes either achievement or limitation, but not both adequately.' },
+        { band: '1 mark', desc: 'Makes a basic statement about Mabo or Native Title with minimal accurate detail.' },
+      ],
+      keyPoints: ['Overturned Terra Nullius', 'Recognised Native Title existed before British settlement', 'Acknowledged Indigenous people as original custodians', 'Limitation: must prove continuous connection to land', 'Difficulty due to dispossession, Stolen Generation, disruption of kinship', 'Led to Native Title Act 1993']
+    },
+    {
+      num: 22, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Comprehensive analysis covering multiple government policies (missions, reserves, assimilation, Stolen Generation). Clearly links each policy to its impact on Aboriginal spirituality — kinship, identity, language, Dreaming, totem systems. Addresses long-term consequences with depth. Well-structured with appropriate terminology.' },
+        { band: '5–6 marks', desc: 'Covers most policies with reasonable accuracy. Links to spiritual impact are present but may not be sustained across all policies. Some discussion of long-term consequences.' },
+        { band: '3–4 marks', desc: 'Identifies some policies and their general effects. Limited connection to spiritual impact specifically. May be descriptive rather than analytical.' },
+        { band: '1–2 marks', desc: 'Makes general statements about colonisation or government policy. Very limited accurate detail about specific policies or spiritual consequences.' },
+      ],
+      keyPoints: ['Missions: Christian conversion, traditional practices banned, children removed', 'Reserves: training for labour and integration into white society', 'Assimilation (1937): eliminate Aboriginal cultural identity, remove children', 'Stolen Generation: loss of kinship, language, Dreaming knowledge, generational trauma', 'Long-term: spiritual disconnection, loss of identity, overrepresentation of children in care', 'Assimilation ended 1972; replaced by self-determination']
+    },
+    {
+      num: 23, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Sophisticated discussion of religious change with reference to multiple causes and consequences. Addresses immigration, "No Religion", and shifts in Christian adherence accurately. May include reference to ecumenism or interfaith dialogue. Uses census data or specific examples. Well-argued and structured.' },
+        { band: '5–6 marks', desc: 'Discusses religious diversity with reasonable depth. Addresses most required areas. Some use of evidence. Ecumenism or interfaith may be present.' },
+        { band: '3–4 marks', desc: 'Describes some changes to religious diversity. Coverage of required areas may be uneven. Limited use of evidence.' },
+        { band: '1–2 marks', desc: 'Makes general observations about religion in Australia. Very limited accuracy or detail.' },
+      ],
+      keyPoints: ['Immigration: Hinduism (India), Buddhism (Vietnam/China), Islam (Middle East/SE Asia), Sikhism (India/Pakistan)', 'Christianity from Philippines maintained Catholic presence', 'Christianity declined from dominant to 43.9% in 2021', '"No Religion" at 38.9%', 'Factors: secularisation, church scandals, scientific progress, changing values', 'Ecumenism: NCCA, NSW Ecumenical Council', 'Interfaith dialogue: promotes respect and social cohesion in multicultural Australia']
+    }
+  ],
+  paper3: [
+    {
+      num: 21, marks: 4,
+      criteria: [
+        { band: '4 marks', desc: 'Names and explains at least two concepts from Aboriginal spirituality with accuracy and depth. Clearly links each concept to how it shapes spiritual, social or environmental obligations. Coherent, well-structured, uses correct terminology.' },
+        { band: '3 marks', desc: 'Explains two concepts with reasonable accuracy. Link to obligations is mostly clear. Terminology mostly appropriate.' },
+        { band: '2 marks', desc: 'Identifies and partially explains one or two concepts. Connection to obligations is present but limited.' },
+        { band: '1 mark', desc: 'Makes a basic relevant statement about the Dreaming. Very limited concept discussion.' },
+      ],
+      keyPoints: ['Dreaming: explains creation, shapes law, customs, identity and connection to Country', 'Kinship: connects people, animals, plants, land — creates social and ceremonial obligations', 'Totems: responsibility to protect related species and environments', 'Ceremonies: maintain spiritual connection and preserve Dreaming knowledge', 'Country: spiritual and cultural belonging, basis of identity', 'Elders: hold and transmit knowledge, gain status through wisdom']
+    },
+    {
+      num: 22, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Evaluates Reconciliation efforts with nuance, acknowledging both what has been achieved and what remains unresolved. Clearly discusses the role of religious traditions and organisations with specific examples (church apologies, advocacy, support services). Addresses ongoing challenges such as overrepresentation of Aboriginal children in care, land rights, and generational trauma. Well-structured argument.' },
+        { band: '5–6 marks', desc: 'Addresses religious involvement in Reconciliation with reasonable accuracy. Some evaluation of effectiveness present. Examples used but may not be fully developed. Ongoing challenges acknowledged.' },
+        { band: '3–4 marks', desc: 'Describes some Reconciliation efforts or religious involvement. Limited evaluation. May be largely descriptive without assessing effectiveness.' },
+        { band: '1–2 marks', desc: 'Makes general statements about Reconciliation. Very limited accurate detail or no reference to religious traditions.' },
+      ],
+      keyPoints: ['Anglican Church apology 1988; Catholic apologies followed', 'Churches involved in missions, assimilation, Stolen Generation — acknowledge this role', 'Indigenous justice programs, advocacy for land rights', 'NCCA: social justice, support services', 'Ongoing challenges: generational trauma, overrepresentation in care systems', 'Land rights still contested', 'Self-determination as framework for ongoing Reconciliation', 'Interfaith dialogue in acknowledging Aboriginal spiritualities']
+    },
+    {
+      num: 23, marks: 8,
+      criteria: [
+        { band: '7–8 marks', desc: 'Constructs a clear argument in response to "to what extent". Demonstrates comprehensive knowledge of religious change since 1945 using census data or specific examples. Discusses multiple factors driving change and their consequences. Addresses ecumenical and interfaith responses to diversity. Well-structured with appropriate terminology throughout.' },
+        { band: '5–6 marks', desc: 'Addresses the extent of change with reasonable accuracy. Uses some evidence. Covers most required areas though depth may vary. Some reference to ecumenism or interfaith.' },
+        { band: '3–4 marks', desc: 'Describes religious change in broad terms. Limited argument construction. Some areas covered but not all. Limited use of evidence.' },
+        { band: '1–2 marks', desc: 'General observations about religion in Australia. No clear argument. Very limited detail or evidence.' },
+      ],
+      keyPoints: ['Australia has become significantly more diverse', '2021 Census: Christianity 43.9%, No Religion 38.9%', 'Immigration as primary driver: Islam, Hinduism, Buddhism, Sikhism', 'Secularisation: church scandals, scientific progress, changing values', 'Denominational switching within Christianity', 'New Age spirituality growth', 'NCCA and NSW Ecumenical Council managing Christian diversity', 'Interfaith dialogue: reducing prejudice, promoting social cohesion', 'Multiculturalism as the broader social context']
+    }
+  ]
+};
+
+function buildMarkingPrompt() {
+  const exam = currentExam;
+  const criteria = SA_CRITERIA[exam.id];
+
+  let prompt = `You are an experienced HSC Studies of Religion marker. Please assess the following short answer responses according to the marking criteria provided for each question. For each response:
+- Summarise what the student did well
+- Identify what was missing or could be improved
+- Suggest a mark out of the total available, with a brief justification
+- Give one specific piece of advice to improve the response
+
+Be direct and constructive. Use the marking criteria and key points provided.
+
+===========================================
+EXAM: ${exam.tag} — ${exam.title}
+===========================================
+`;
+
+  exam.sa.forEach((q, i) => {
+    const crit = criteria[i];
+    const answer = (saAnswers[q.num] || '').trim() || '[No response provided]';
+
+    prompt += `
+-------------------------------------------
+QUESTION ${q.num} (${q.marks} marks)
+-------------------------------------------
+QUESTION TEXT:
+${q.prompt}
+
+STUDENT'S RESPONSE:
+${answer}
+
+MARKING CRITERIA:
+`;
+    crit.criteria.forEach(c => {
+      prompt += `• ${c.band}: ${c.desc}\n`;
+    });
+    prompt += `
+KEY CONTENT POINTS (what a strong response should include):
+`;
+    crit.keyPoints.forEach(kp => {
+      prompt += `• ${kp}\n`;
+    });
+    prompt += '\n';
+  });
+
+  prompt += `===========================================
+Please provide your assessment for each question above.
+===========================================`;
+
+  return prompt;
+}
+
+function showSAMarking() {
+  const prompt = buildMarkingPrompt();
+
+  document.getElementById('marking-prompt-body').textContent = prompt;
+  document.getElementById('copy-btn').textContent = 'Copy prompt';
+  document.getElementById('copy-btn').className = 'copy-btn';
+
+  // Build criteria accordion
+  const criteria = SA_CRITERIA[currentExam.id];
+  const acc = document.getElementById('criteria-accordion');
+  acc.innerHTML = criteria.map((c, i) => `
+    <div class="criteria-item">
+      <button class="criteria-toggle" onclick="toggleCriteria(this, 'crit-${i}')">
+        <span>Question ${c.num} — ${c.marks} marks</span>
+        <span class="criteria-chevron">▼</span>
+      </button>
+      <div class="criteria-body" id="crit-${i}">
+        <p style="margin:0.75rem 0 0.5rem;font-weight:500;font-size:12px;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-light)">Band descriptors</p>
+        ${c.criteria.map(b => `<p style="margin-bottom:6px"><strong>${b.band}:</strong> ${b.desc}</p>`).join('')}
+        <p style="margin:0.75rem 0 0.5rem;font-weight:500;font-size:12px;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-light)">Key content points</p>
+        <ul>${c.keyPoints.map(kp => `<li>${kp}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `).join('');
+
+  showScreen('marking');
+  document.getElementById('header-btn-area').innerHTML = `<button class="btn" onclick="goHome()" style="font-size:12px;padding:5px 12px;">← All tests</button>`;
+}
+
+function toggleCriteria(btn, id) {
+  const body = document.getElementById(id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function copyPrompt() {
+  const text = document.getElementById('marking-prompt-body').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.className = 'copy-btn copied';
+    setTimeout(() => {
+      btn.textContent = 'Copy prompt';
+      btn.className = 'copy-btn';
+    }, 2500);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.className = 'copy-btn copied';
+    setTimeout(() => { btn.textContent = 'Copy prompt'; btn.className = 'copy-btn'; }, 2500);
+  });
 }
 
 // ═══════════════════════════════════════════════
